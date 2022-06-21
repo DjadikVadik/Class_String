@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 
 class String
@@ -9,18 +9,18 @@ class String
 
 public:
 
-	// конструкторы:
+	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹:
 	String();
 	String(char* text);
 	explicit String(unsigned int capacity);
 
-	//деструктор
+	//РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 	~String();
 
-	//конструктор копирования
+	//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	String(const String& origin);
 
-	//перегрузка операторов
+	//РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂРѕРІ
 	bool operator ==(const String& other);
 	bool operator ==(const char* text);
 	bool operator<(const String& other);
@@ -32,7 +32,7 @@ public:
 	String& operator+(const String& other);
 	String& operator+(const char* text);
 
-	//методы
+	//РјРµС‚РѕРґС‹
 	char get_char_at(unsigned int num);
 };
 

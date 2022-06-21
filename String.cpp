@@ -1,6 +1,6 @@
-#include "String.h"
+ï»¿#include "String.h"
 
-#pragma region ÊÎÍÑÒĞÓÊÒÎĞÛ:
+#pragma region ĞšĞĞĞ¡Ğ¢Ğ Ğ£ĞšĞ¢ĞĞ Ğ«:
 String::String()
 {
 	str = new char[capacity];
@@ -39,7 +39,7 @@ String::String(unsigned int capacity)
 
 #pragma endregion
 
-#pragma region ÄÅÑÒĞÓÊÒÎĞ:
+#pragma region Ğ”Ğ•Ğ¡Ğ¢Ğ Ğ£ĞšĞ¢ĞĞ :
 String::~String()
 {
 	if (str != nullptr)
@@ -51,7 +51,7 @@ String::~String()
 }
 #pragma endregion
 
-#pragma region ÊÎÍÑÒĞÓÊÒÎĞ ÊÎÏÈĞÎÂÀÍÈß
+#pragma region ĞšĞĞĞ¡Ğ¢Ğ Ğ£ĞšĞ¢ĞĞ  ĞšĞĞŸĞ˜Ğ ĞĞ’ĞĞĞ˜Ğ¯
 String::String(const String& origin)
 {
 	capacity = origin.capacity;
@@ -65,7 +65,7 @@ String::String(const String& origin)
 
 #pragma endregion
 
-#pragma region ÏÅĞÅÃĞÓÇÊÀ ÎÏÅĞÀÒÎĞÎÂ:
+#pragma region ĞŸĞ•Ğ Ğ•Ğ“Ğ Ğ£Ğ—ĞšĞ ĞĞŸĞ•Ğ ĞĞ¢ĞĞ ĞĞ’:
 bool String::operator==(const String& other)
 {
 	if (length != other.length) return false;
@@ -273,12 +273,12 @@ String& String::operator+(const char* text)
 #pragma endregion
 
 
-#pragma region ÌÅÒÎÄÛ:
+#pragma region ĞœĞ•Ğ¢ĞĞ”Ğ«:
 char String::get_char_at(unsigned int num)
 {
 	if (num <= length && num > 0)
 		return str[num - 1];
-	else throw std::exception("ñèìâîëà ñ òàêèì ïîğÿäêîâûì íîìåğîì íåò â ñòğîêå!!!");
+	else throw std::exception("ÑĞ¸Ğ¼Ğ²Ğ¾Ğ»Ğ° Ñ Ñ‚Ğ°ĞºĞ¸Ğ¼ Ğ¿Ğ¾Ñ€ÑĞ´ĞºĞ¾Ğ²Ñ‹Ğ¼ Ğ½Ğ¾Ğ¼ĞµÑ€Ğ¾Ğ¼ Ğ½ĞµÑ‚ Ğ² ÑÑ‚Ñ€Ğ¾ĞºĞµ!!!");
 }
 
 #pragma endregion
