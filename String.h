@@ -11,7 +11,7 @@ public:
 
 	// конструкторы:
 	String();
-	String(char* text);
+	String(const char* text);
 	explicit String(unsigned int capacity);
 
 	//деструктор
@@ -30,9 +30,15 @@ public:
 	String& operator=(const String& other);
 	String& operator=(const char* text);
 	String& operator+(const String& other);
+	String& operator+=(const String& other);
 	String& operator+(const char* text);
+	String& operator+=(const char* text);
+	friend std::ostream& operator << (std::ostream& ost, const String& st);
+	friend std::istream& operator << (std::istream& ist, const String& st);
 
 	//методы
 	char get_char_at(unsigned int num);
+	unsigned int _length();
+	unsigned int _capacity();
 };
 

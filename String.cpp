@@ -6,7 +6,7 @@ String::String()
 	str = new char[capacity];
 }
 
-String::String(char* text)
+String::String(const char* text) : String()
 {
 
 	if (strlen(text) < capacity) {
@@ -168,6 +168,7 @@ bool String::operator>(const char* text)
 
 String& String::operator=(const String& other)
 {
+	if (str == other.str) return *this;
 	capacity = other.capacity;
 	length = other.length;
 	str = new char[capacity];
@@ -181,6 +182,7 @@ String& String::operator=(const String& other)
 
 String& String::operator=(const char* text)
 {
+	if (str == text) return *this;
 	if (strlen(text) < capacity) {
 
 		for (int i = 0; i < strlen(text); i++)
@@ -206,6 +208,38 @@ String& String::operator=(const char* text)
 }
 
 String& String::operator+(const String& other)
+{
+	if (capacity > length + other.length)
+	{
+		for (int i = 0; i < other.length; i++)
+			str[length + i] = other.str[i];
+		length += other.length;
+		str[length] = '\0';
+		return *this;
+	}
+	else {
+		capacity = length + other.length + 80;
+		char* text = new char[capacity];
+		int n = 0;
+
+		for (int i = 0; i < length; i++) {
+			text[n] = str[i];
+			n++;
+		}
+
+		for (int i = 0; i < other.length; i++) {
+			text[n] = other.str[i];
+			n++;
+		}
+		length += other.length;
+		text[length] = '\0';
+		delete[] str;
+		str = text;
+		return *this;
+	}
+}
+
+String& String::operator+=(const String& other)
 {
 	if (capacity > length + other.length)
 	{
@@ -270,6 +304,51 @@ String& String::operator+(const char* text)
 	}
 }
 
+String& String::operator+=(const char* text)
+{
+	if (capacity > length + strlen(text))
+	{
+		for (int i = 0; i < strlen(text); i++)
+			str[length + i] = text[i];
+		length += strlen(text);
+		str[length] = '\0';
+		return *this;
+	}
+
+	else {
+		capacity = length + strlen(text) + 80;
+		char* text1 = new char[capacity];
+		int n = 0;
+
+		for (int i = 0; i < length; i++) {
+			text1[n] = str[i];
+			n++;
+		}
+
+		for (int i = 0; i < strlen(text); i++) {
+			text1[n] = text[i];
+			n++;
+		}
+		length += strlen(text);
+		text1[length] = '\0';
+		delete[] str;
+		str = text1;
+		return *this;
+	}
+}
+
+std::ostream& operator<<(std::ostream& ost, const String& st)
+{
+	ost << st.str;
+	return ost;
+}
+
+std::istream& operator<<(std::istream& ist, const String& st)
+{
+	ist >> st.str;
+	return ist;
+}
+
 #pragma endregion
 
 
@@ -279,6 +358,16 @@ char String::get_char_at(unsigned int num)
 	if (num <= length && num > 0)
 		return str[num - 1];
 	else throw std::exception("символа с таким порядковым номером нет в строке!!!");
+}
+
+unsigned int String::_length()
+{
+	return length;
+}
+
+unsigned int String::_capacity()
+{
+	return capacity;
 }
 
 #pragma endregion
