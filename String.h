@@ -12,13 +12,14 @@ public:
 	// конструкторы:
 	String();
 	String(const char* text);
-	explicit String(unsigned int capacity);
+    String(unsigned int capacity);
 
 	//деструктор
 	~String();
 
-	//конструктор копирования
+	//конструктор копирования и переноса
 	String(const String& origin);
+	String(String&& origin);
 
 	//перегрузка операторов
 	bool operator ==(const String& other);
@@ -29,9 +30,9 @@ public:
 	bool operator>(const char* text);
 	String& operator=(const String& other);
 	String& operator=(const char* text);
-	String& operator+(const String& other);
+	String operator+(const String& other);
 	String& operator+=(const String& other);
-	String& operator+(const char* text);
+	String operator+(const char* text);
 	String& operator+=(const char* text);
 	friend std::ostream& operator << (std::ostream& ost, const String& st);
 	friend std::istream& operator << (std::istream& ist, const String& st);
