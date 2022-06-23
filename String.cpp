@@ -214,8 +214,8 @@ String& String::operator=(const char* text)
 
 String String::operator+(const String& other)
 {
-	String copy(length + strlen(text) + 80);
-	copy.length = length + strlen(text);
+	String copy(length + other.length + 80);
+	copy.length = length + other.length;
 
 	int n = 0;
 
