@@ -82,6 +82,16 @@ bool String::operator==(const String& other)
 	return true;
 }
 
+bool String::operator!=(const String& other)
+{
+	if (length != other.length) return true;
+	else
+		for (int i = 0; i < length; i++)
+			if (str[i] != other.str[i])
+				return true;
+	return false;
+}
+
 bool String::operator==(const char* text)
 {
 	if (length != strlen(text)) return false;
@@ -90,6 +100,16 @@ bool String::operator==(const char* text)
 			if (str[i] != text[i])
 				return false;
 	return true;
+}
+
+bool String::operator!=(const char* text)
+{
+	if (length != strlen(text)) return true;
+	else
+		for (int i = 0; i < length; i++)
+			if (str[i] != text[i])
+				return true;
+	return false;
 }
 
 bool String::operator<(const String& other)

@@ -23,6 +23,7 @@ public:
 
 	//перегрузка операторов
 	bool operator ==(const String& other);
+	bool operator !=(const String& other);
 	bool operator ==(const char* text);
 	bool operator<(const String& other);
 	bool operator<(const char* text);
