@@ -37,11 +37,16 @@ public:
 	String operator+(const char* text);
 	String& operator+=(const char* text);
 	friend std::ostream& operator << (std::ostream& ost, const String& st);
-	friend std::istream& operator << (std::istream& ist, const String& st);
+	friend std::istream& operator >> (std::istream& ist, const String& st);
 
 	//методы
 	char get_char_at(unsigned int num);
 	unsigned int _length();
 	unsigned int _capacity();
+	const char* GetCharArray() const;
+	int IndexOf(char ch);
+	int IndexOf(String other);
+	int IndexOf(const char* text);
+	void Replace(char R, char Z);
 };
 

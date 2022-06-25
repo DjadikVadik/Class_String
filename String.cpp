@@ -348,14 +348,13 @@ std::ostream& operator<<(std::ostream& ost, const String& st)
 	return ost;
 }
 
-std::istream& operator<<(std::istream& ist, const String& st)
+std::istream& operator>>(std::istream& ist, const String& st)
 {
 	ist >> st.str;
 	return ist;
 }
 
 #pragma endregion
-
 
 #pragma region МЕТОДЫ:
 char String::get_char_at(unsigned int num)
@@ -374,6 +373,53 @@ unsigned int String::_capacity()
 {
 	return capacity;
 }
+
+const char* String::GetCharArray() const
+{
+	return str;
+}
+
+int String::IndexOf(char ch)
+{
+	for (int i = 0; i < length; i++)
+		if (str[i] == ch) return i;
+	return -1;
+}
+
+int String::IndexOf(String other)
+{
+	for (int i = 0; i < length - other.length; i++) {
+		bool in_serch = true;
+		for (int j = 0; j < other.length; j++)
+			if (str[i + j] != other.str[j]) {
+				in_serch = false;
+				break;
+			}
+		if (in_serch) return i;
+	}
+	return -1;
+}
+
+int String::IndexOf(const char* text)
+{
+	for (int i = 0; i < length - strlen(text); i++) {
+		bool in_serch = true;
+		for (int j = 0; j < strlen(text); j++)
+			if (str[i + j] != text[j]) {
+				in_serch = false;
+				break;
+			}
+		if (in_serch) return i;
+	}
+	return -1;
+}
+
+void String::Replace(char R, char Z)
+{
+	for (int i = 0; i < length; i++)
+		if (str[i] == R) str[i] = Z;
+}
+
 
 #pragma endregion
 
