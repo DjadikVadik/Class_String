@@ -36,6 +36,7 @@ public:
 	String& operator+=(const String& other);
 	String operator+(const char* text);
 	String& operator+=(const char* text);
+	char& operator[](int index);
 	friend std::ostream& operator << (std::ostream& ost, const String& st);
 	friend std::istream& operator >> (std::istream& ist, const String& st);
 
@@ -45,8 +46,12 @@ public:
 	unsigned int _capacity();
 	const char* GetCharArray() const;
 	int IndexOf(char ch);
-	int IndexOf(String other);
+	int IndexOf(const String& other);
 	int IndexOf(const char* text);
 	void Replace(char R, char Z);
+	void Replace(const String& substr, const String& rep);
+	void Replace(const char* substr, const char* rep);
+	String ToLower();
+	String ToUpper();
 };
 

@@ -342,6 +342,12 @@ String& String::operator+=(const char* text)
 	}
 }
 
+char& String::operator[](int index)
+{
+	if (index >= 0 && index < length) return str[index];
+	else throw std::exception("out of memory!!!");
+}
+
 std::ostream& operator<<(std::ostream& ost, const String& st)
 {
 	ost << st.str;
@@ -359,8 +365,7 @@ std::istream& operator>>(std::istream& ist, const String& st)
 #pragma region МЕТОДЫ:
 char String::get_char_at(unsigned int num)
 {
-	if (num <= length && num > 0)
-		return str[num - 1];
+	if (num < length && num >= 0) return str[num];
 	else throw std::exception("символа с таким порядковым номером нет в строке!!!");
 }
 
@@ -386,9 +391,10 @@ int String::IndexOf(char ch)
 	return -1;
 }
 
-int String::IndexOf(String other)
+int String::IndexOf(const String& other)
 {
-	for (int i = 0; i < length - other.length; i++) {
+	if (length < other.length) return -1;
+	for (int i = 0; i < length - other.length + 1; i++) {
 		bool in_serch = true;
 		for (int j = 0; j < other.length; j++)
 			if (str[i + j] != other.str[j]) {
@@ -402,7 +408,8 @@ int String::IndexOf(String other)
 
 int String::IndexOf(const char* text)
 {
-	for (int i = 0; i < length - strlen(text); i++) {
+	if (length < strlen(text)) return -1;
+	for (int i = 0; i < length - strlen(text) + 1; i++) {
 		bool in_serch = true;
 		for (int j = 0; j < strlen(text); j++)
 			if (str[i + j] != text[j]) {
@@ -420,6 +427,118 @@ void String::Replace(char R, char Z)
 		if (str[i] == R) str[i] = Z;
 }
 
+void String::Replace(const String& substr, const String& rep)
+{
+	if (length < substr.length) return;
+	if (IndexOf(substr) < 0) return;
+	if (capacity <= length + rep.length) capacity = length + rep.length + 80;
+
+	char* str1 = new char[capacity]; // новая строка
+	int k = 0; // индекс элемента новой строки
+
+	for (int i = 0; i < length - substr.length + 1; i++) 
+	{
+		bool in_serch = true;
+
+		str1[k] = str[i];
+
+		for (int j = 0; j < substr.length; j++)
+			if (str[i + j] != substr.str[j]) 
+			{
+				in_serch = false;
+				break;
+			}
+		if (in_serch) 
+		{
+			for (int j = 0; j < rep.length; j++)
+			{
+				str1[k] = rep.str[j];
+				k++;
+			}
+			i += substr.length - 1;
+		}
+
+		else k++;
+	}
+	for (int i = length - substr.length + 1; i < length; i++) {
+		str1[k] = str[i];
+		k++;
+	}
+
+	str1[k] = '\0';
+	length = k;
+	delete[] str;
+	str = str1;
+	str1 = nullptr;
+	
+}
+
+void String::Replace(const char* substr, const char* rep)
+{
+	if (length < strlen(substr)) return;
+	if (IndexOf(substr) < 0) return;
+	if (capacity <= length + strlen(rep)) capacity = length + strlen(rep) + 80;
+
+	char* str1 = new char[capacity]; // новая строка
+	int k = 0;
+
+	for (int i = 0; i < length - strlen(substr) + 1; i++)
+	{
+		bool in_serch = true;
+
+		str1[k] = str[i];
+
+		for (int j = 0; j < strlen(substr); j++)
+			if (str[i + j] != substr[j])
+			{
+				in_serch = false;
+				break;
+			}
+		if (in_serch)
+		{
+			for (int j = 0; j < strlen(rep); j++)
+			{
+				str1[k] = rep[j];
+				k++;
+			}
+
+			i += strlen(substr) - 1;
+		}
+
+		else k++;
+	}
+	for (int i = length - strlen(substr) + 1; i < length; i++) {
+		str1[k] = str[i];
+		k++;
+	}
+
+	str1[k] = '\0';
+	length = k;
+	delete[] str;
+	str = str1;
+	str1 = nullptr;
+
+}
+
+String String::ToLower()
+{
+	String clone = *this;
+
+	for (int i = 0; i < clone.length; i++)
+		if (clone.str[i] >= 'A' && clone.str[i] <= 'Z' || clone.str[i] >= 'А' && clone.str[i] <= 'Я') clone.str[i] += 32;
+
+	return clone;
+}
+
+String String::ToUpper()
+{
+	String clone = *this;
+
+	for (int i = 0; i < clone.length; i++)
+		if (clone.str[i] >= 'a' && clone.str[i] <= 'z' || clone.str[i] >= 'а' && clone.str[i] <= 'я') clone.str[i] -= 32;
+
+	return clone;
+}
 
 #pragma endregion
 
