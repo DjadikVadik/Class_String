@@ -19,7 +19,7 @@ String::String(const char* text)
 
 	else {
 		while (capacity <= strlen(text)) capacity += 80;
-		delete[] str;
+
 		str = new char[capacity];
 
 		for (int i = 0; i < strlen(text); i++)
@@ -194,9 +194,10 @@ bool String::operator>(const char* text)
 
 String& String::operator=(const String& other)
 {
-	if (str == other.str) return *this;
+	if (this == &other) return *this;
 	capacity = other.capacity;
 	length = other.length;
+	delete[] str;
 	str = new char[capacity];
 
 	for (int i = 0; i < length; i++)
@@ -213,8 +214,8 @@ String& String::operator=(const char* text)
 		for (int i = 0; i < strlen(text); i++)
 			str[i] = text[i];
 
-		str[strlen(text)] = '\0';
 		length = strlen(text);
+		str[length] = '\0';
 	}
 
 	else {
@@ -225,8 +226,8 @@ String& String::operator=(const char* text)
 		for (int i = 0; i < strlen(text); i++)
 			str[i] = text[i];
 
-		str[strlen(text)] = '\0';
 		length = strlen(text);
+		str[length] = '\0';
 	}
 
 	return *this;
